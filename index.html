@@ -1,0 +1,3215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Chai Lije ☕ | Pragathi Nagar</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@600;700&family=Baloo+Tammudu+2:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a4731;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #b7e4c7;
+    --green-bg: #f0faf4;
+    --white: #ffffff;
+    --cream: #fdf9f0;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --text-dark: #1a2e1f;
+    --text-mid: #3d5a47;
+    --text-light: #7aab8a;
+    --red: #e53e3e;
+    --red-light: #fff5f5;
+    --shadow: 0 4px 24px rgba(29,70,48,0.12);
+    --shadow-hover: 0 12px 40px rgba(29,70,48,0.22);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--green-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--green-dark);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+  }
+  .logo-area { display: flex; flex-direction: column; }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .logo-tagline {
+    font-size: 11px;
+    color: var(--green-pale);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+  .header-icons { display: flex; gap: 10px; align-items: center; }
+  .header-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+    color: white;
+  }
+  .header-btn:active { transform: scale(0.9); }
+  .admin-dot {
+    width: 8px; height: 8px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: all 0.3s;
+  }
+  .admin-dot:hover { background: var(--gold); }
+
+  /* Floating admin dot — visible above closed/break overlays */
+  .admin-float-dot {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 460;
+    display: none;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: all 0.3s;
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.4);
+  }
+  .admin-float-dot.visible { display: block; }
+  .admin-float-dot.status-break {
+    background: #f39c12;
+    animation: floatDotPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(243,156,18,0.6);
+  }
+  .admin-float-dot.status-closed {
+    background: #e53e3e;
+    animation: floatDotPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(229,62,62,0.6);
+  }
+  @keyframes floatDotPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); transform: scale(1.15); }
+  }
+
+  /* ── DECORATIVE BAND ── */
+  .green-band {
+    background: var(--green-mid);
+    padding: 8px 18px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .green-band::-webkit-scrollbar { display: none; }
+  .cat-pill {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .cat-pill.active, .cat-pill:hover {
+    background: var(--gold);
+    color: var(--green-dark);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+    padding: 28px 20px 36px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(82,183,136,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero h2 { font-size: 15px; color: var(--green-pale); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+  .hero p { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 6px; }
+
+  /* ── MENU SECTION ── */
+  .menu-section { padding: 0 14px 120px; }
+
+  .category-block { margin-top: 24px; }
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--green-dark);
+    border-radius: var(--radius) var(--radius) 0 0;
+    color: white;
+  }
+  .cat-header-emoji { font-size: 22px; }
+  .cat-header-name { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; }
+  .cat-items { background: white; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+    position: relative;
+    gap: 10px;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item.unavailable { opacity: 0.45; }
+  .oos-label {
+    display: none;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--red);
+    background: var(--red-light);
+    border: 1px solid #fcc;
+    border-radius: 5px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.3px;
+  }
+  .menu-item.unavailable .oos-label { display: inline; }
+
+  .item-info { flex: 1; min-width: 0; }
+  .item-name { font-size: 14px; font-weight: 700; color: var(--text-dark); display: block; }
+  .item-price { font-size: 13px; color: var(--green-mid); font-weight: 800; margin-top: 1px; }
+
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--green-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1.5px solid var(--green-pale);
+    flex-shrink: 0;
+  }
+  .qty-btn {
+    width: 32px; height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-mid);
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: 'Nunito', sans-serif;
+  }
+  .qty-btn:active { transform: scale(0.85); background: var(--green-pale); }
+  .qty-btn.add-btn { background: var(--green-mid); color: white; border-radius: 0 24px 24px 0; }
+  .qty-btn.add-btn:active { background: var(--green-dark); }
+  .qty-num {
+    min-width: 28px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-dark);
+    padding: 0 2px;
+  }
+
+  /* ── EXTRA ITEMS SECTION ── */
+  .extra-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 9px;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CART BUBBLE ── */
+  .cart-fab {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background: var(--green-dark);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(26,71,49,0.45);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    white-space: nowrap;
+  }
+  .cart-fab:active { transform: translateX(-50%) scale(0.95); }
+  .cart-fab.hidden { transform: translateX(-50%) translateY(100px); opacity: 0; pointer-events: none; }
+  .cart-fab-badge {
+    background: var(--gold);
+    color: var(--green-dark);
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    font-size: 12px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── CART DRAWER ── */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    z-index: 301;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .cart-drawer.open { transform: translateY(0); }
+
+  .cart-handle {
+    width: 40px; height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    margin: 12px auto 0;
+    flex-shrink: 0;
+  }
+  .cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+  .cart-title { font-size: 18px; font-weight: 900; color: var(--text-dark); }
+  .cart-close {
+    width: 32px; height: 32px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+  }
+
+  .cart-items-list { overflow-y: auto; flex: 1; padding: 0 20px; }
+  .cart-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+    gap: 10px;
+    animation: slideIn 0.2s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cart-row:last-child { border-bottom: none; }
+  .cart-row-name { flex: 1; font-size: 14px; font-weight: 700; }
+  .cart-row-price { font-size: 13px; color: var(--green-mid); font-weight: 800; min-width: 60px; text-align: right; }
+
+  .cart-footer {
+    padding: 14px 20px 28px;
+    border-top: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+  .cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .cart-total-label { font-size: 16px; font-weight: 700; color: var(--text-mid); }
+  .cart-total-amt { font-size: 22px; font-weight: 900; color: var(--green-dark); }
+
+  .order-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.4);
+  }
+  .order-btn:active { transform: scale(0.97); }
+
+  /* ── CONFIRMATION SCREEN ── */
+  .confirm-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px;
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .confirm-screen.open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
+  }
+  .confirm-circle {
+    width: 100px; height: 100px;
+    background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+    box-shadow: 0 8px 32px rgba(82,183,136,0.4);
+  }
+  @keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+  }
+  .confirm-id {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+  }
+  .confirm-title { font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+  .confirm-sub { font-size: 13px; color: var(--text-light); text-align: center; }
+  .confirm-time {
+    background: var(--green-bg);
+    border: 2px solid var(--green-pale);
+    border-radius: 14px;
+    padding: 14px 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .confirm-time-label { font-size: 12px; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .confirm-time-val { font-size: 24px; font-weight: 900; color: var(--green-mid); margin-top: 2px; }
+  .confirm-items {
+    width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
+    background: #f9faf9;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+  }
+  .confirm-item-row { font-size: 13px; color: var(--text-mid); padding: 4px 0; display: flex; justify-content: space-between; }
+
+  .wa-btn {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+    transition: all 0.2s;
+  }
+  .wa-btn:active { transform: scale(0.97); }
+
+  .back-btn {
+    width: 100%;
+    background: transparent;
+    color: var(--green-mid);
+    border: 2px solid var(--green-pale);
+    border-radius: 14px;
+    padding: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .back-btn:active { background: var(--green-bg); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--green-dark);
+    color: white;
+    padding: 28px 20px 32px;
+    margin-top: 0;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .footer-info { font-size: 13px; color: var(--green-pale); line-height: 1.8; text-align: center; }
+  .footer-info a { color: var(--gold-light); text-decoration: none; }
+  .footer-links { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+  .footer-link-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .footer-link-btn:hover { background: rgba(255,255,255,0.18); }
+  .footer-copy { text-align: center; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 20px; }
+
+  /* ══════════════════════════════════════
+     ADMIN PANEL
+  ══════════════════════════════════════ */
+  .admin-login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .admin-login-overlay.open { opacity: 1; pointer-events: all; }
+
+  .admin-login-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 28px;
+    width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+  .admin-login-overlay.open .admin-login-card { transform: translateY(0); }
+  .admin-login-logo { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--green-dark); text-align: center; margin-bottom: 4px; }
+  .admin-login-sub { font-size: 12px; color: var(--text-light); text-align: center; margin-bottom: 24px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 12px; font-weight: 700; color: var(--text-mid); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e8f0eb;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    color: var(--text-dark);
+    background: #fafafa;
+  }
+  .form-input:focus { border-color: var(--green-light); background: white; }
+  .login-btn {
+    width: 100%;
+    background: var(--green-mid);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: all 0.2s;
+  }
+  .login-btn:active { background: var(--green-dark); }
+  .login-err { color: var(--red); font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; display: none; }
+  .cancel-login {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    padding: 8px;
+  }
+
+  /* ── ADMIN DASHBOARD ── */
+  .admin-panel {
+    position: fixed;
+    inset: 0;
+    background: #f4f7f5;
+    z-index: 700;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .admin-panel.open { transform: translateX(0); }
+
+  .admin-header {
+    background: var(--green-dark);
+    padding: 50px 18px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .admin-header-title { font-size: 18px; font-weight: 900; color: white; }
+  .admin-header-sub { font-size: 11px; color: var(--green-pale); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .logout-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .admin-tabs {
+    display: flex;
+    background: white;
+    border-bottom: 2px solid #eee;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .admin-tabs::-webkit-scrollbar { display: none; }
+  .admin-tab {
+    padding: 12px 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #aaa;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .admin-tab.active { color: var(--green-mid); border-bottom-color: var(--green-mid); }
+
+  .admin-content { flex: 1; overflow-y: auto; padding: 16px; }
+
+  /* Orders */
+  .order-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--green-light);
+    animation: slideIn 0.3s ease;
+  }
+  .order-card.new { border-left-color: var(--gold); }
+  .order-card.working { border-left-color: #3b82f6; }
+  .order-card.ready { border-left-color: var(--green-mid); opacity: 0.8; }
+  .order-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .order-id { font-size: 18px; font-weight: 900; color: var(--green-dark); font-family: 'Playfair Display', serif; }
+  .order-time { font-size: 11px; color: #aaa; font-weight: 600; }
+  .order-status {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .status-new { background: #fff8e0; color: #b8860b; }
+  .status-working { background: #eff6ff; color: #3b82f6; }
+  .status-ready { background: #e8f8ee; color: var(--green-mid); }
+  .order-items-text { font-size: 13px; color: var(--text-mid); margin-bottom: 12px; line-height: 1.6; }
+  .order-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .order-total-label { font-size: 12px; color: #aaa; font-weight: 600; }
+  .order-total-val { font-size: 18px; font-weight: 900; color: var(--green-dark); }
+  .order-actions { display: flex; gap: 8px; }
+  .action-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .action-btn:active { transform: scale(0.95); }
+  .btn-ready { background: #eff6ff; color: #3b82f6; border: 1.5px solid #bfdbfe; }
+  .btn-ready.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+  .btn-complete { background: var(--green-mid); color: white; }
+  .btn-complete:disabled { background: #ccc; }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+  }
+  .empty-state-emoji { font-size: 40px; margin-bottom: 12px; display: block; }
+  .empty-state-text { font-size: 15px; font-weight: 700; }
+  .empty-state-sub { font-size: 13px; margin-top: 6px; }
+
+  /* Menu control */
+  .menu-toggle-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .menu-toggle-cat {
+    background: var(--green-dark);
+    color: var(--gold-light);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .menu-toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .menu-toggle-item:last-child { border-bottom: none; }
+  .toggle-name { font-size: 14px; font-weight: 600; }
+  .toggle-price { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .toggle-switch {
+    position: relative;
+    width: 44px; height: 24px;
+    flex-shrink: 0;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    left: 3px; top: 3px;
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle-switch input:checked + .toggle-slider { background: var(--green-mid); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+  /* Notification */
+  .notif-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+    z-index: 800;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .notif-banner.show { transform: translateY(0); }
+
+  /* 3D card effect */
+  .cat-items .menu-item {
+    transform-style: preserve-3d;
+    perspective: 600px;
+  }
+  @media (hover: hover) {
+    .menu-item:hover {
+      background: linear-gradient(90deg, #f6fff8, white);
+    }
+  }
+
+  /* Pulse animation for new order badge */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
+  }
+  .new-order-pulse { animation: pulse 1.5s infinite; }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--green-pale); border-radius: 2px; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green-dark);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── SHOP STATUS OVERLAYS ── */
+  .shop-closed-overlay, .shop-break-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 450;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .shop-closed-overlay.show, .shop-break-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .shop-closed-overlay {
+    background: linear-gradient(160deg, #1a2e1f 0%, #0f1a12 100%);
+  }
+  .shop-break-overlay {
+    background: linear-gradient(160deg, #2d6a4f 0%, #1a4731 100%);
+  }
+
+  /* Animated Closed Sign Board */
+  .closed-board {
+    position: relative;
+    width: 220px;
+    background: linear-gradient(145deg, #8B1A1A, #c0392b);
+    border: 4px solid #f39c12;
+    border-radius: 16px;
+    padding: 20px 28px 18px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+    animation: boardSwing 3s ease-in-out infinite;
+    transform-origin: top center;
+    margin-bottom: 30px;
+  }
+  .closed-board::before {
+    content: '';
+    position: absolute;
+    top: -22px; left: 50%; transform: translateX(-50%);
+    width: 3px; height: 22px;
+    background: #f39c12;
+  }
+  .closed-board::after {
+    content: '🔴🔴🔴';
+    position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    font-size: 8px;
+    letter-spacing: 6px;
+  }
+  @keyframes boardSwing {
+    0%,100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+  .closed-board-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    animation: closedFlicker 4s ease-in-out infinite;
+  }
+  @keyframes closedFlicker {
+    0%,95%,100% { opacity: 1; }
+    96%          { opacity: 0.5; }
+    97%          { opacity: 1; }
+    98%          { opacity: 0.4; }
+  }
+  .closed-board-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .closed-chain {
+    font-size: 28px;
+    margin-bottom: -10px;
+    opacity: 0.6;
+    animation: chainSway 3s ease-in-out infinite;
+  }
+  @keyframes chainSway {
+    0%,100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+  .closed-msg {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    animation: textBob 2.5s ease-in-out infinite;
+  }
+  @keyframes textBob {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .closed-sub { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+  .closed-emoji-row { font-size: 32px; margin-top: 20px; animation: emojiPop 1.5s ease-in-out infinite alternate; }
+  @keyframes emojiPop {
+    from { transform: scale(1) rotate(-5deg); }
+    to   { transform: scale(1.15) rotate(5deg); }
+  }
+
+  /* Break overlay */
+  .break-cup {
+    font-size: 80px;
+    animation: cupFloat 2s ease-in-out infinite;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+  }
+  @keyframes cupFloat {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-12px) rotate(5deg); }
+  }
+  .steam-row {
+    display: flex; gap: 12px; margin-bottom: 20px;
+    font-size: 24px;
+    opacity: 0.7;
+  }
+  .steam-row span { animation: steamRise 1.8s ease-in-out infinite; }
+  .steam-row span:nth-child(2) { animation-delay: 0.3s; }
+  .steam-row span:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes steamRise {
+    0%,100% { transform: translateY(0); opacity: 0.4; }
+    50%      { transform: translateY(-12px); opacity: 0.9; }
+  }
+  .break-msg {
+    font-size: 20px; font-weight: 900; color: var(--gold-light);
+    margin-bottom: 10px; line-height: 1.4;
+  }
+  .break-sub { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+  /* Admin status toggles */
+  .admin-status-bar {
+    background: rgba(0,0,0,0.25);
+    padding: 12px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .status-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+  .status-toggle-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.85);
+    flex: 1;
+    line-height: 1.2;
+  }
+  .status-toggle-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    font-weight: 600;
+  }
+  .status-toggle-switch {
+    position: relative;
+    width: 40px; height: 22px;
+    flex-shrink: 0;
+  }
+  .status-toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .status-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .status-toggle-slider::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 2px;
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .status-toggle-switch input:checked + .status-toggle-slider { background: #e53e3e; }
+  .status-toggle-switch.break-toggle input:checked + .status-toggle-slider { background: #f39c12; }
+  .status-toggle-switch input:checked + .status-toggle-slider::before { transform: translateX(18px); }
+
+  @media (max-width: 400px) {
+    .item-name { font-size: 13px; }
+    .qty-btn { width: 28px; height: 28px; font-size: 16px; }
+    .qty-num { min-width: 24px; font-size: 13px; }
+  }
+
+  /* ── HERO TRANSFORMATION STAGE ── */
+  .transform-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 18px 0 14px;
+    perspective: 800px;
+  }
+
+  /* each emoji slot */
+  .t-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .t-card {
+    width: 64px; height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.10);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+    transform-style: preserve-3d;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+    animation: cardFloat 3.5s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    transition: background 0.4s;
+  }
+  .t-slot:nth-child(3) .t-card { animation-delay: 0.4s; }
+  .t-slot:nth-child(5) .t-card { animation-delay: 0.8s; }
+
+  @keyframes cardFloat {
+    0%,100% { transform: translateY(0)   rotateX(0deg)   rotateY(0deg); }
+    25%      { transform: translateY(-5px) rotateX(6deg)  rotateY(8deg); }
+    50%      { transform: translateY(-8px) rotateX(0deg)  rotateY(0deg); }
+    75%      { transform: translateY(-5px) rotateX(-6deg) rotateY(-8deg); }
+  }
+
+  /* drink card gets gold glow */
+  .t-card--drink {
+    background: rgba(201,168,76,0.22) !important;
+    border-color: rgba(201,168,76,0.55) !important;
+    box-shadow: 0 0 0 0 rgba(201,168,76,0.6), 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    animation: cardFloat 3.5s ease-in-out infinite, drinkGlow 2s ease-in-out infinite !important;
+  }
+  @keyframes drinkGlow {
+    0%,100% { box-shadow: 0 0 0 0   rgba(201,168,76,0.0), 0 8px 24px rgba(0,0,0,0.3); }
+    50%      { box-shadow: 0 0 0 12px rgba(201,168,76,0.0), 0 8px 32px rgba(201,168,76,0.5); }
+  }
+
+  /* the result card gets green pulse when sequence arrives */
+  .t-card--result {
+    background: rgba(82,183,136,0.20) !important;
+    border-color: rgba(82,183,136,0.50) !important;
+  }
+
+  /* arrows between cards */
+  .t-arrow {
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    flex-shrink: 0;
+    margin-top: -4px;
+    animation: arrowPulse 1.8s ease-in-out infinite;
+  }
+  .t-arrow:last-of-type { animation-delay: 0.6s; }
+  @keyframes arrowPulse {
+    0%,100% { opacity: 0.4; transform: translateX(0); }
+    50%      { opacity: 1;   transform: translateX(3px); }
+  }
+
+  /* label under each card */
+  .t-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+  .t-label--drink { color: rgba(201,168,76,0.8); }
+  .t-label--result { color: rgba(82,183,136,0.8); }
+
+  /* flip-out / flip-in animations on swap */
+  .t-card.flip-out {
+    animation: flipOut 0.35s cubic-bezier(0.55,0,1,0.45) forwards !important;
+  }
+  .t-card.flip-in {
+    animation: flipIn 0.4s cubic-bezier(0,0.55,0.45,1) forwards !important;
+  }
+  @keyframes flipOut {
+    0%   { transform: rotateY(0deg) scale(1);    opacity: 1; }
+    100% { transform: rotateY(90deg) scale(0.5); opacity: 0; }
+  }
+  @keyframes flipIn {
+    0%   { transform: rotateY(-90deg) scale(0.5); opacity: 0; }
+    100% { transform: rotateY(0deg) scale(1);     opacity: 1; }
+  }
+
+  /* sparkle particle burst on the drink card */
+  .t-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 14px;
+    animation: sparklePop 0.7s ease-out forwards;
+  }
+  @keyframes sparklePop {
+    0%   { transform: translate(0,0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scale(1.2); opacity: 0; }
+  }
+
+  /* hero quote */
+  .hero-quote {
+    font-size: 15px;
+    color: rgba(255,255,255,0.92);
+    font-style: italic;
+    min-height: 24px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: block;
+    transition: opacity 0.45s, transform 0.45s;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    letter-spacing: 0.3px;
+  }
+  .hero-quote.fade { opacity: 0; transform: translateY(5px); }
+
+  /* English stylish font */
+  .hero-quote.font-en {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+  }
+  /* Telugu stylish font */
+  .hero-quote.font-te {
+    font-family: 'Baloo Tammudu 2', cursive;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 1.7;
+  }
+
+  /* ══════════════════════════════════════
+     WHY PEOPLE LOVE — PREMIUM CLEAN
+  ══════════════════════════════════════ */
+  .why-love-section {
+    padding: 36px 18px 32px;
+    background: var(--white);
+    position: relative;
+  }
+
+  /* heading */
+  .why-love-heading {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .why-love-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 8px;
+  }
+  .why-love-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .why-love-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .why-love-divider-line {
+    height: 1.5px;
+    width: 40px;
+    background: linear-gradient(90deg, transparent, var(--green-pale));
+  }
+  .why-love-divider-line:last-child {
+    background: linear-gradient(90deg, var(--green-pale), transparent);
+  }
+  .why-love-divider-dot {
+    width: 6px; height: 6px;
+    background: var(--green-light);
+    border-radius: 50%;
+  }
+
+  /* grid */
+  .why-love-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* card */
+  .why-love-card {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 24px 14px 20px;
+    text-align: center;
+    border: 1.5px solid #eaf4ee;
+    box-shadow: 0 2px 12px rgba(29,70,48,0.06);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .why-love-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .why-love-card:nth-child(1) { transition-delay: 0.06s; }
+  .why-love-card:nth-child(2) { transition-delay: 0.16s; }
+  .why-love-card:nth-child(3) { transition-delay: 0.26s; }
+  .why-love-card:nth-child(4) { transition-delay: 0.36s; }
+
+  /* top accent bar that grows in on visible */
+  .why-love-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; 
+    height: 3px;
+    width: 0;
+    border-radius: 0 0 4px 4px;
+    transition: width 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s, left 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s;
+  }
+  .why-love-card.visible::before { width: 48px; left: calc(50% - 24px); }
+
+  .why-love-card:nth-child(1)::before { background: var(--gold); }
+  .why-love-card:nth-child(2)::before { background: var(--green-light); }
+  .why-love-card:nth-child(3)::before { background: #f06292; }
+  .why-love-card:nth-child(4)::before { background: #4db6ac; }
+
+  /* icon bubble */
+  .why-love-icon-wrap {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .why-love-card:nth-child(1) .why-love-icon-wrap { background: #fdf6e3; }
+  .why-love-card:nth-child(2) .why-love-icon-wrap { background: #edf7f1; }
+  .why-love-card:nth-child(3) .why-love-icon-wrap { background: #fce4ec; }
+  .why-love-card:nth-child(4) .why-love-icon-wrap { background: #e0f2f1; }
+
+  .why-love-emoji {
+    font-size: 28px;
+    display: block;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+  .why-love-card:nth-child(2) .why-love-emoji { animation-delay: 1s; }
+  .why-love-card:nth-child(3) .why-love-emoji { animation-delay: 2s; }
+  .why-love-card:nth-child(4) .why-love-emoji { animation-delay: 3s; }
+  @keyframes gentleFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+
+  /* label */
+  .why-love-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.4;
+  }
+  .why-love-card:nth-child(1) .why-love-label { color: #8a6000; }
+  .why-love-card:nth-child(2) .why-love-label { color: var(--green-dark); }
+  .why-love-card:nth-child(3) .why-love-label { color: #ad1457; }
+  .why-love-card:nth-child(4) .why-love-label { color: #00695c; }
+
+  /* ── TAKEOFF STUDIO CREDIT FOOTER ── */
+  .tts-footer {
+    background: #0f0f0f;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-top: 1px solid #1e1e1e;
+  }
+  .tts-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .tts-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .tts-brand:active { opacity: 0.7; }
+  .tts-logo-icon {
+    width: 30px; height: 30px;
+    background: #f5a623;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tts-logo-icon svg { width: 17px; height: 17px; }
+  .tts-brand-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .tts-brand-name span { color: #f5a623; }
+  .phone-input-wrap {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+  .phone-input-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+    display: block;
+    text-align: left;
+  }
+  .phone-input-row {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--green-pale);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+  }
+  .phone-prefix {
+    background: var(--green-bg);
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-mid);
+    border-right: 2px solid var(--green-pale);
+    flex-shrink: 0;
+  }
+  .phone-number-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 12px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-dark);
+    background: white;
+  }
+  .phone-number-input::placeholder { color: #bbb; font-weight: 600; }
+
+  /* ── BREAK / CLOSED PICKER MODAL ── */
+  .picker-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 750;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .picker-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .picker-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 24px 22px 20px;
+    width: 88%;
+    max-width: 340px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    transform: scale(0.92);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .picker-modal-overlay.open .picker-modal { transform: scale(1); }
+  .picker-modal-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+  }
+  .picker-modal-sub {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .picker-field-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .picker-input {
+    width: 100%;
+    border: 2px solid var(--green-pale);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-dark);
+    outline: none;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+  }
+  .picker-input:focus { border-color: var(--green-light); }
+  .picker-actions { display: flex; gap: 10px; }
+  .picker-btn-cancel {
+    flex: 1;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    cursor: pointer;
+  }
+  .picker-btn-set {
+    flex: 2;
+    background: var(--green-mid);
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .picker-btn-set:active { background: var(--green-dark); }
+
+  /* ── FOOTER ICON BUTTONS ── */
+  .footer-icon-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 48px; height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    color: white;
+  }
+  .footer-icon-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .footer-icon-btn svg { width: 22px; height: 22px; fill: currentColor; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-name">☕ Chai Lije</div>
+      <div class="logo-tagline">Pragathi Nagar · Hyderabad</div>
+    </div>
+    <div class="header-icons">
+      <span class="admin-dot" id="adminDot" title="Admin"></span>
+    </div>
+  </div>
+  <div class="green-band" id="catNav"></div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <h2>Chai Lije, Pragathi Nagar</h2>
+
+  <!-- 3-step transformation display -->
+  <div class="transform-stage">
+    <div class="t-slot">
+      <div class="t-card" id="tBefore">😴</div>
+      <div class="t-label">Before</div>
+    </div>
+    <div class="t-arrow">➜</div>
+    <div class="t-slot">
+      <div class="t-card t-card--drink" id="tDrink">☕</div>
+      <div class="t-label t-label--drink">Chai Lije</div>
+    </div>
+    <div class="t-arrow">➜</div>
+    <div class="t-slot">
+      <div class="t-card t-card--result" id="tAfter">😌</div>
+      <div class="t-label t-label--result">After</div>
+    </div>
+  </div>
+
+  <p class="hero-quote" id="heroQuote"></p>
+</section>
+
+<!-- ── WHY PEOPLE LOVE ── -->
+<section class="why-love-section">
+  <div class="why-love-heading">
+    <div class="why-love-eyebrow">✦ Our Promise ✦</div>
+    <div class="why-love-title">Why People Love Chai Lije</div>
+    <div class="why-love-divider">
+      <div class="why-love-divider-line"></div>
+      <div class="why-love-divider-dot"></div>
+      <div class="why-love-divider-line"></div>
+    </div>
+  </div>
+  <div class="why-love-grid" id="whyLoveGrid">
+    <div class="why-love-card">
+      <div class="why-love-icon-wrap">
+        <span class="why-love-emoji">☕</span>
+      </div>
+      <div class="why-love-label">Authentic Taste</div>
+    </div>
+    <div class="why-love-card">
+      <div class="why-love-icon-wrap">
+        <span class="why-love-emoji">🏡</span>
+      </div>
+      <div class="why-love-label">Cozy Ambience</div>
+    </div>
+    <div class="why-love-card">
+      <div class="why-love-icon-wrap">
+        <span class="why-love-emoji">❤️</span>
+      </div>
+      <div class="why-love-label">Friendly Service</div>
+    </div>
+    <div class="why-love-card">
+      <div class="why-love-icon-wrap">
+        <span class="why-love-emoji">🧼</span>
+      </div>
+      <div class="why-love-label">Hygienic Preparation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<main class="menu-section" id="menuSection"></main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-logo">☕ Chai Lije</div>
+  <div class="footer-info">
+    <div>📞 <a href="tel:9030982929">9030982929</a></div>
+    <div style="margin-top:8px">📍 Shop No 1, Plot No 800, Pragathi Nagar<br>Near 3 Monkey Junction, Hyderabad – 500090</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/chailijepragati" target="_blank" class="footer-icon-btn" title="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://maps.google.com/?q=Pragathi+Nagar+Hyderabad+500090" target="_blank" class="footer-icon-btn" title="Open in Maps">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C7.802 0 4 3.403 4 7.602 4 11.8 7.469 16.812 12 24c4.531-7.188 8-12.2 8-16.398C20 3.403 16.199 0 12 0zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+    </a>
+    <a href="tel:9030982929" class="footer-icon-btn" title="Call Us">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    </a>
+  </div>
+  <div class="footer-copy">© 2025 Chai Lije. Made with ☕ & ❤️</div>
+</footer>
+
+<!-- ── FLOATING ADMIN DOT (visible above closed/break overlays) ── -->
+<div class="admin-float-dot" id="adminFloatDot" title="Admin access"></div>
+
+<!-- ── SHOP CLOSED OVERLAY ── -->
+<div class="shop-closed-overlay" id="shopClosedOverlay">
+  <div class="closed-chain">⛓️</div>
+  <div class="closed-board">
+    <div class="closed-board-text">Closed</div>
+    <div class="closed-board-sub">Sorry, we're not open</div>
+  </div>
+  <div class="closed-msg">We're closed today... 😎</div>
+  <div class="closed-sub">
+    Don't worry, tomorrow will be tastier!<br>
+    See you bright & early with fresh chai ☕
+  </div>
+  <div class="closed-emoji-row">🌙✨🍵</div>
+</div>
+
+<!-- ── SHOP BREAK OVERLAY ── -->
+<div class="shop-break-overlay" id="shopBreakOverlay">
+  <div class="steam-row">
+    <span>〰️</span><span>〰️</span><span>〰️</span>
+  </div>
+  <div class="break-cup">☕</div>
+  <div class="break-msg">Chai break for us now...<br>see you soon! 😄</div>
+  <div class="break-sub">
+    We'll be back in a little while.<br>
+    Hang tight, the chai is worth the wait! 🍵
+  </div>
+</div>
+
+<!-- ── CART FAB ── -->
+<button class="cart-fab hidden" id="cartFab" onclick="openCart()">
+  <span>🛒 View Cart</span>
+  <span class="cart-fab-badge" id="cartBadge">0</span>
+  <span id="cartFabTotal" style="font-size:13px;opacity:0.8"></span>
+</button>
+
+<!-- ── CART DRAWER ── -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-handle"></div>
+  <div class="cart-header">
+    <div class="cart-title">🛒 Your Order</div>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total Amount</span>
+      <span class="cart-total-amt" id="cartTotalAmt">₹0</span>
+    </div>
+    <button class="order-btn" onclick="placeOrder()">🚀 Place Order via WhatsApp</button>
+  </div>
+</div>
+
+<!-- ── CONFIRMATION SCREEN ── -->
+<div class="confirm-screen" id="confirmScreen">
+  <div class="confirm-circle">✅</div>
+  <div class="confirm-id" id="confirmOrderId"></div>
+  <div class="confirm-title">Order Placed!</div>
+  <div class="confirm-sub">Thank you for ordering from Chai Lije ☕</div>
+  <div class="confirm-time">
+    <div class="confirm-time-label">Estimated Time</div>
+    <div class="confirm-time-val">⏱ 10–15 mins</div>
+  </div>
+  <div class="confirm-items" id="confirmItemsList"></div>
+  <div class="phone-input-wrap">
+    <label class="phone-input-label">📱 Your WhatsApp number <span style="color:var(--red);font-size:11px">(required for order updates)</span></label>
+    <div class="phone-input-row">
+      <span class="phone-prefix">🇮🇳 +91</span>
+      <input type="tel" class="phone-number-input" id="customerPhone" maxlength="10" placeholder="Enter 10-digit number" inputmode="numeric" pattern="[0-9]*">
+    </div>
+  </div>
+  <button class="wa-btn" id="waBtn">
+    <span style="font-size:20px">💬</span> Send via WhatsApp
+  </button>
+  <button class="back-btn" onclick="closeConfirm()">Back to Menu</button>
+</div>
+
+<!-- ── ADMIN LOGIN ── -->
+<div class="admin-login-overlay" id="adminLoginOverlay">
+  <div class="admin-login-card">
+    <div class="admin-login-logo">☕ Chai Lije</div>
+    <div class="admin-login-sub">Admin Access</div>
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-input" id="adminUser" placeholder="Enter ID">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="adminPass" placeholder="Enter Password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Login →</button>
+    <div class="login-err" id="loginErr">Invalid credentials</div>
+    <button class="cancel-login" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <div>
+      <div class="admin-header-title">Admin Dashboard</div>
+      <div class="admin-header-sub">Chai Lije · Pragathi Nagar</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+  <!-- Shop Status Toggles -->
+  <div class="admin-status-bar">
+    <div class="status-toggle-row">
+      <div class="status-toggle-label">
+        ☕ Short Break
+        <span class="status-toggle-sub">Hides menu for customers</span>
+      </div>
+      <label class="status-toggle-switch break-toggle">
+        <input type="checkbox" id="breakToggle" onchange="setShopStatus('break', this.checked)">
+        <span class="status-toggle-slider"></span>
+      </label>
+    </div>
+    <div class="status-toggle-row">
+      <div class="status-toggle-label">
+        🔒 Closed Today
+        <span class="status-toggle-sub">Shows closed board</span>
+      </div>
+      <label class="status-toggle-switch">
+        <input type="checkbox" id="closedToggle" onchange="setShopStatus('closed', this.checked)">
+        <span class="status-toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab('orders', this)">🧾 Orders</button>
+    <button class="admin-tab" onclick="switchTab('menu', this)">🍃 Menu</button>
+    <button class="admin-tab" onclick="switchTab('completed', this)">✅ Completed</button>
+  </div>
+  <div class="admin-content" id="adminContent"></div>
+</div>
+
+<!-- ── BREAK TIME PICKER MODAL ── -->
+<div class="picker-modal-overlay" id="breakPickerOverlay">
+  <div class="picker-modal">
+    <div class="picker-modal-title">☕ Short Break</div>
+    <div class="picker-modal-sub">Customers will see your break screen. Set your return time:</div>
+    <label class="picker-field-label">Back at</label>
+    <input type="time" class="picker-input" id="breakTimeInput">
+    <div class="picker-actions">
+      <button class="picker-btn-cancel" onclick="cancelBreakPicker()">Cancel</button>
+      <button class="picker-btn-set" onclick="confirmBreakPicker()">✅ Set Break</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── CLOSED DATE PICKER MODAL ── -->
+<div class="picker-modal-overlay" id="closedPickerOverlay">
+  <div class="picker-modal">
+    <div class="picker-modal-title">🔒 Shop Closed</div>
+    <div class="picker-modal-sub">Customers will see the closed board. Set your reopen date:</div>
+    <label class="picker-field-label">Reopening on</label>
+    <input type="date" class="picker-input" id="closedDateInput">
+    <div class="picker-actions">
+      <button class="picker-btn-cancel" onclick="cancelClosedPicker()">Cancel</button>
+      <button class="picker-btn-set" onclick="confirmClosedPicker()">✅ Set Closed</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADMIN PHONE PROMPT MODAL ── -->
+<div class="picker-modal-overlay" id="phonePromptOverlay">
+  <div class="picker-modal">
+    <div class="picker-modal-title">📱 Customer's Number</div>
+    <div class="picker-modal-sub">Customer didn't save their number. Enter it manually to send them the ready notification:</div>
+    <label class="picker-field-label">WhatsApp Number</label>
+    <div class="phone-input-row" style="margin-bottom:18px;border:2px solid var(--green-pale);border-radius:10px;overflow:hidden">
+      <span class="phone-prefix">🇮🇳 +91</span>
+      <input type="tel" class="phone-number-input" id="adminPhoneEntry" maxlength="10" placeholder="10-digit number" inputmode="numeric" pattern="[0-9]*">
+    </div>
+    <div class="picker-actions">
+      <button class="picker-btn-cancel" onclick="cancelPhonePrompt()">Cancel</button>
+      <button class="picker-btn-set" onclick="confirmPhonePrompt()">💬 Send WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── NOTIFICATION BANNER ── -->
+<div class="notif-banner" id="notifBanner"></div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+//  MENU DATA
+// ══════════════════════════════════════
+const MENU = [
+  {
+    id: 'chai', name: 'Chai Varieties', emoji: '☕',
+    items: [
+      { id:'c1', name:'Kadak Chai', price:15 },
+      { id:'c2', name:'Kadak Chai Full', price:18 },
+      { id:'c3', name:'Ginger Chai', price:20 },
+      { id:'c4', name:'Ginger Chai Full', price:25 },
+      { id:'c5', name:'Masala Chai', price:25 },
+      { id:'c6', name:'Ajwain Chai', price:25 },
+      { id:'c7', name:'Cinnamon Chai', price:25 },
+      { id:'c8', name:'Bellam Chai', price:20 },
+      { id:'c9', name:'Allam Bellam Chai', price:25 },
+      { id:'c10', name:'Elachi Chai', price:25 },
+      { id:'c11', name:'Star Chai', price:25 },
+    ]
+  },
+  {
+    id: 'special', name: 'Special Chai', emoji: '⭐',
+    items: [
+      { id:'s1', name:'Star Chai', price:20 },
+      { id:'s2', name:'Cinnamon Chai', price:20 },
+      { id:'s3', name:'Jaggery Chai', price:20 },
+      { id:'s4', name:'Chai Lije Special', price:20 },
+      { id:'s5', name:'Ajwain Chai', price:20 },
+    ]
+  },
+  {
+    id: 'coffee', name: 'Coffee Varieties', emoji: '☕',
+    items: [
+      { id:'cf1', name:'Instant Coffee', price:25 },
+      { id:'cf2', name:'Filter Coffee', price:30 },
+      { id:'cf3', name:'Black Coffee', price:20 },
+      { id:'cf4', name:'Bellam Coffee', price:30 },
+      { id:'cf5', name:'Thati Bellam Coffee', price:30 },
+      { id:'cf6', name:'Sonth Coffee', price:30 },
+      { id:'cf7', name:'Bullet Coffee', price:25 },
+      { id:'cf8', name:'Sukku Coffee', price:30 },
+    ]
+  },
+  {
+    id: 'milk', name: 'Milk Varieties', emoji: '🥛',
+    items: [
+      { id:'m1', name:'Badam Milk (Hot)', price:25 },
+      { id:'m2', name:'Sonth Milk', price:25 },
+      { id:'m3', name:'Ragi Malt', price:25 },
+      { id:'m4', name:'Golden Milk', price:30 },
+      { id:'m5', name:'Horlicks', price:25 },
+      { id:'m6', name:'Boost', price:25 },
+      { id:'m7', name:'Pepper Milk', price:20 },
+      { id:'m8', name:'Cardamom Milk', price:20 },
+      { id:'m9', name:'Plain Milk', price:15 },
+    ]
+  },
+  {
+    id: 'immunity', name: 'Immunity Boosters', emoji: '🌿',
+    items: [
+      { id:'i1', name:'Green Tea', price:20 },
+      { id:'i2', name:'Lemon Tea', price:20 },
+      { id:'i3', name:'Ginger Lemon Tea', price:25 },
+      { id:'i4', name:'Black Tea', price:20 },
+      { id:'i5', name:'Tulasi Green Tea', price:30 },
+      { id:'i6', name:'Blue Tea', price:25 },
+      { id:'i7', name:'Traditional Kadha', price:25 },
+    ]
+  },
+  {
+    id: 'snacks', name: 'Snacks / Sandwich', emoji: '🥪',
+    items: [
+      { id:'sn1', name:'Veg Sandwich', price:80 },
+      { id:'sn2', name:'Corn Sandwich', price:80 },
+      { id:'sn3', name:'Cheese Corn Sandwich', price:90 },
+      { id:'sn4', name:'Paneer Sandwich', price:90 },
+      { id:'sn5', name:'Cheese Toast Sandwich', price:90 },
+      { id:'sn6', name:'Masala Sandwich', price:90 },
+      { id:'sn7', name:'French Fries', price:70 },
+      { id:'sn8', name:'Veg Nuggets', price:70 },
+    ]
+  },
+  {
+    id: 'saath', name: 'Chai Ke Saath', emoji: '🍪',
+    items: [
+      { id:'ck1', name:'Osmania Cookies (3 pcs)', price:10 },
+      { id:'ck2', name:'Coconut Cookies (3 pcs)', price:10 },
+      { id:'ck3', name:'Khara Cookies (3 pcs)', price:10 },
+      { id:'ck4', name:'Garlic Sticks (3 pcs)', price:10 },
+      { id:'ck5', name:'Methi Tie Biscuits (3 pcs)', price:10 },
+    ]
+  },
+  {
+    id: 'shakes', name: 'Milk Shakes', emoji: '🥤',
+    items: [
+      { id:'sh1', name:'Vanilla Milk Shake', price:80 },
+      { id:'sh2', name:'Mango Milk Shake', price:80 },
+      { id:'sh3', name:'Strawberry Milk Shake', price:80 },
+      { id:'sh4', name:'Chikoo Milk Shake', price:80 },
+      { id:'sh5', name:'Oreo Milk Shake', price:100 },
+      { id:'sh6', name:'Chocolate Milk Shake', price:100 },
+      { id:'sh7', name:'KitKat Milk Shake', price:100 },
+      { id:'sh8', name:'Blueberry Milk Shake', price:100 },
+      { id:'sh9', name:'Caramel Banana Milk Shake', price:100 },
+      { id:'sh10', name:'Strawberry Nutella Milk Shake', price:100 },
+      { id:'sh11', name:'Dryfruit Milk Shake', price:100 },
+      { id:'sh12', name:'Butterscotch Milkshake', price:80, badge:'New' },
+    ]
+  },
+  {
+    id: 'mojito', name: 'Mojitos', emoji: '🍹',
+    items: [
+      { id:'mj1', name:'Virgin Mojito', price:60 },
+      { id:'mj2', name:'Watermelon Mojito', price:60 },
+      { id:'mj3', name:'Blue Curacao Mojito', price:60 },
+      { id:'mj4', name:'Green Apple Mojito', price:60 },
+      { id:'mj5', name:'Strawberry Mojito', price:60 },
+      { id:'mj6', name:'Black Currant Mojito', price:60 },
+      { id:'mj7', name:'Rose Mojito', price:60 },
+      { id:'mj8', name:'Blue Berry Mojito', price:60 },
+    ]
+  },
+  {
+    id: 'icedtea', name: 'Iced Teas', emoji: '🧊',
+    items: [
+      { id:'it1', name:'Lemon Mint Ice Tea', price:35 },
+      { id:'it2', name:'Strawberry Ice Tea', price:35 },
+      { id:'it3', name:'Coconut Ice Tea', price:35 },
+      { id:'it4', name:'Black Currant Ice Tea', price:35 },
+    ]
+  },
+  {
+    id: 'extras', name: 'More Favourites', emoji: '🌟',
+    items: [
+      { id:'ex1', name:'Nannari', price:30 },
+      { id:'ex2', name:'Lassi', price:40 },
+      { id:'ex3', name:'Buttermilk', price:20 },
+      { id:'ex4', name:'Nannari Lassi', price:50 },
+    ]
+  },
+];
+
+// ══════════════════════════════════════
+//  FIREBASE CONFIG
+//  1. Go to console.firebase.google.com
+//  2. New Project → Realtime Database → Start in TEST MODE
+//  3. Copy your database URL and paste below
+// ══════════════════════════════════════
+const FIREBASE_DB = "https://clpnagar-default-rtdb.asia-southeast1.firebasedatabase.app/";
+  // Example: 'https://chai-lije-rtdb.firebaseio.com'
+const FB_READY = typeof FIREBASE_DB === 'string'
+  && FIREBASE_DB.startsWith('https://')
+  && FIREBASE_DB.includes('firebasedatabase.app');
+
+// ══════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════
+let cart = {};
+let menuAvail = JSON.parse(localStorage.getItem('cl_avail') || '{}');
+let orders = [];
+let adminLoggedIn = false;
+let notifInterval = null;
+let adminSyncInterval = null;
+let currentAdminTab = 'orders';
+let audioCtx = null;
+let seenOrderIds = new Set();
+let shopStatus = localStorage.getItem('cl_shop_status') || 'open'; // 'open', 'break', 'closed'
+let myOrderIds = JSON.parse(localStorage.getItem('cl_my_orders') || '[]');
+let customerPollInterval = null;
+
+// ══════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════
+function getItem(id) {
+  for (const cat of MENU) {
+    const it = cat.items.find(i => i.id === id);
+    if (it) return it;
+  }
+  return null;
+}
+
+function isAvailable(id) {
+  return menuAvail[id] !== false;
+}
+
+function generateOrderId() {
+  let seq = parseInt(localStorage.getItem('cl_order_seq') || '0') + 1;
+  localStorage.setItem('cl_order_seq', seq);
+  return 'CL' + seq;
+}
+
+function saveOrders() { localStorage.setItem('cl_orders', JSON.stringify(orders)); }
+function saveAvail() { localStorage.setItem('cl_avail', JSON.stringify(menuAvail)); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ══════════════════════════════════════
+//  AUDIO — unlock on first touch, then play chai bell
+// ══════════════════════════════════════
+function initAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+}
+document.addEventListener('touchstart', initAudio, { once: true });
+document.addEventListener('click', initAudio, { once: true });
+
+function playBeep() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const doPlay = () => {
+      const now = audioCtx.currentTime;
+      const notes = [
+        { freq: 880,  start: 0,    dur: 0.18, gain: 0.55 },
+        { freq: 1175, start: 0.18, dur: 0.18, gain: 0.5  },
+        { freq: 1397, start: 0.36, dur: 0.5,  gain: 0.45 },
+      ];
+      notes.forEach(({ freq, start, dur, gain: g }) => {
+        const osc  = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        const osc2 = audioCtx.createOscillator();
+        const g2   = audioCtx.createGain();
+        osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+        osc2.connect(g2); g2.connect(audioCtx.destination);
+        osc.type = 'triangle'; osc2.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + start);
+        osc2.frequency.setValueAtTime(freq * 1.005, now + start);
+        gainNode.gain.setValueAtTime(0, now + start);
+        gainNode.gain.linearRampToValueAtTime(g, now + start + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+        g2.gain.setValueAtTime(0, now + start);
+        g2.gain.linearRampToValueAtTime(g * 0.3, now + start + 0.01);
+        g2.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+        osc.start(now + start);  osc.stop(now + start + dur);
+        osc2.start(now + start); osc2.stop(now + start + dur);
+      });
+    };
+    audioCtx.state === 'suspended' ? audioCtx.resume().then(doPlay) : doPlay();
+  } catch(e) {}
+}
+
+// ══════════════════════════════════════
+//  FIREBASE — cross-device order sync
+// ══════════════════════════════════════
+async function fbPushOrder(order) {
+  if (!FB_READY) return;
+  try {
+    await fetch(`${FIREBASE_DB}/orders/${order.id}.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order),
+    });
+  } catch(e) { console.warn('Firebase write error', e); }
+}
+
+async function fbPatchOrder(id, patch) {
+  if (!FB_READY) return;
+  try {
+    await fetch(`${FIREBASE_DB}/orders/${id}.json`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patch),
+    });
+  } catch(e) {}
+}
+
+async function fbFetchOrders() {
+  if (!FB_READY) return null;
+  try {
+    const res = await fetch(`${FIREBASE_DB}/orders.json`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data) return [];
+    return Object.values(data).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  } catch(e) { return null; }
+}
+
+async function fbSetShopStatus(status) {
+  if (!FB_READY) return;
+  try {
+    await fetch(`${FIREBASE_DB}/shopStatus.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status }),
+    });
+  } catch(e) {}
+}
+
+async function fbGetShopStatus() {
+  if (!FB_READY) return null;
+  try {
+    const res = await fetch(`${FIREBASE_DB}/shopStatus.json`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data ? data.status : 'open';
+  } catch(e) { return null; }
+}
+
+async function fbSetMenuAvail(avail) {
+  if (!FB_READY) return;
+  try {
+    await fetch(`${FIREBASE_DB}/menuAvail.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(avail),
+    });
+  } catch(e) { console.warn('Firebase menuAvail write error', e); }
+}
+
+async function fbGetMenuAvail() {
+  if (!FB_READY) return null;
+  try {
+    const res = await fetch(`${FIREBASE_DB}/menuAvail.json`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data || {};
+  } catch(e) { return null; }
+}
+
+function startCustomerPoll() {
+  if (customerPollInterval) return;
+  // Poll immediately on start to get current state
+  (async () => {
+    const remoteAvail = await fbGetMenuAvail();
+    if (remoteAvail) applyRemoteMenuAvail(remoteAvail);
+    const status = await fbGetShopStatus();
+    if (status) { shopStatus = status; localStorage.setItem('cl_shop_status', shopStatus); }
+    const meta = await fbGetStatusMeta();
+    if (meta) applyStatusMeta(meta);
+    updateShopStatusOverlay();
+  })();
+
+  customerPollInterval = setInterval(async () => {
+    if (adminLoggedIn) return; // skip on admin side
+
+    // Poll shop status
+    const status = await fbGetShopStatus();
+    if (status && status !== shopStatus) {
+      shopStatus = status;
+      localStorage.setItem('cl_shop_status', shopStatus);
+      const meta = await fbGetStatusMeta();
+      if (meta) applyStatusMeta(meta);
+      updateShopStatusOverlay();
+    }
+
+    // Poll menu availability
+    const remoteAvail = await fbGetMenuAvail();
+    if (remoteAvail) applyRemoteMenuAvail(remoteAvail);
+
+    // Poll for customer's own orders becoming ready
+    if (myOrderIds.length === 0) return;
+    const fresh = await fbFetchOrders();
+    if (!fresh) return;
+    fresh.forEach(o => {
+      if (myOrderIds.includes(o.id) && (o.status === 'completed' || o.status === 'ready')) {
+        const seen = JSON.parse(localStorage.getItem('cl_notified_orders') || '[]');
+        if (!seen.includes(o.id)) {
+          seen.push(o.id);
+          localStorage.setItem('cl_notified_orders', JSON.stringify(seen));
+          showCustomerReadyNotif(o.id);
+        }
+      }
+    });
+  }, 5000);
+}
+
+function applyStatusMeta(meta) {
+  if (!meta) return;
+  if (meta.backTime !== undefined) {
+    if (meta.backTime) localStorage.setItem('cl_back_time', meta.backTime);
+    else localStorage.removeItem('cl_back_time');
+  }
+  if (meta.reopenDate !== undefined) {
+    if (meta.reopenDate) localStorage.setItem('cl_reopen_date', meta.reopenDate);
+    else localStorage.removeItem('cl_reopen_date');
+  }
+}
+
+function applyRemoteMenuAvail(remoteAvail) {
+  let changed = false;
+  // Check for any difference
+  const allIds = new Set([...Object.keys(menuAvail), ...Object.keys(remoteAvail)]);
+  allIds.forEach(id => {
+    const remoteVal = remoteAvail[id] !== false; // treat missing as available
+    const localVal = menuAvail[id] !== false;
+    if (remoteVal !== localVal) {
+      menuAvail[id] = remoteAvail[id];
+      changed = true;
+      refreshItemRow(id);
+    }
+  });
+  if (changed) {
+    saveAvail();
+    updateCartUI(); // in case an item in cart is now unavailable
+  }
+}
+
+function showCustomerReadyNotif(orderId) {
+  playReadyChime();
+  const banner = document.getElementById('notifBanner');
+  banner.style.background = '#25D366';
+  banner.style.color = 'white';
+  banner.textContent = `✅ Your order ${orderId} is ready! Please come & collect 🍵`;
+  banner.classList.add('show');
+  setTimeout(() => banner.classList.remove('show'), 20000);
+  banner.onclick = () => banner.classList.remove('show');
+}
+
+function playReadyChime() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const doPlay = () => {
+      const now = audioCtx.currentTime;
+      const notes = [
+        { freq: 523, start: 0,    dur: 0.2, gain: 0.5 },
+        { freq: 659, start: 0.2,  dur: 0.2, gain: 0.5 },
+        { freq: 784, start: 0.4,  dur: 0.2, gain: 0.5 },
+        { freq: 1047,start: 0.6,  dur: 0.5, gain: 0.55 },
+      ];
+      notes.forEach(({ freq, start, dur, gain: g }) => {
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + start);
+        gainNode.gain.setValueAtTime(0, now + start);
+        gainNode.gain.linearRampToValueAtTime(g, now + start + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+        osc.start(now + start); osc.stop(now + start + dur + 0.1);
+      });
+    };
+    audioCtx.state === 'suspended' ? audioCtx.resume().then(doPlay) : doPlay();
+  } catch(e) {}
+}
+
+async function startAdminSync() {
+  if (adminSyncInterval) clearInterval(adminSyncInterval);
+  await doAdminSync();
+  adminSyncInterval = setInterval(doAdminSync, 5000);
+}
+
+async function doAdminSync() {
+  if (!adminLoggedIn) return;
+  try {
+    // Sync shop status
+    const remoteStatus = await fbGetShopStatus();
+    if (remoteStatus && remoteStatus !== shopStatus) {
+      shopStatus = remoteStatus;
+      localStorage.setItem('cl_shop_status', shopStatus);
+      syncStatusToggleUI();
+      const meta = await fbGetStatusMeta();
+      if (meta) applyStatusMeta(meta);
+      updateShopStatusOverlay();
+    }
+    // Sync menu availability (in case another admin device toggled something)
+    const remoteAvail = await fbGetMenuAvail();
+    if (remoteAvail) {
+      const allIds = new Set([...Object.keys(menuAvail), ...Object.keys(remoteAvail)]);
+      let avChanged = false;
+      allIds.forEach(id => {
+        if (menuAvail[id] !== remoteAvail[id]) { menuAvail[id] = remoteAvail[id]; avChanged = true; }
+      });
+      if (avChanged) { saveAvail(); if (currentAdminTab === 'menu') renderAdminContent(); }
+    }
+    const fresh = await fbFetchOrders();
+    if (fresh === null) {
+      // Firebase not configured — fall back to local
+      orders = JSON.parse(localStorage.getItem('cl_orders') || '[]');
+      renderAdminContent();
+      return;
+    }
+    const newOnes = fresh.filter(o => !seenOrderIds.has(o.id) && o.status === 'new');
+    fresh.forEach(o => seenOrderIds.add(o.id));
+    orders = fresh;
+    if (newOnes.length > 0) triggerAdminNotif(newOnes[0].id);
+    renderAdminContent();
+  } catch(e) {
+    console.warn('Admin sync error:', e);
+    orders = JSON.parse(localStorage.getItem('cl_orders') || '[]');
+    renderAdminContent();
+  }
+}
+
+// ══════════════════════════════════════
+//  HERO ROTATING QUOTES (Telugu funny wait lines)
+// ══════════════════════════════════════
+const CHAI_QUOTES = [
+  "Konchem wait andi… mee order love tho prepare avutundi ☕❤️",
+  "కొంచెం ఆగండి… మీ చాయ్ ప్రేమతో తయారవుతుంది ☕❤️",
+  "Kitchen lo magic jarugutundi… konchem patience please 😄",
+  "మీ ఆర్డర్ స్లో కాదు… పర్ఫెక్ట్ గా చేస్తున్నాం 😌",
+  "Chai strong ga ready avutundi… mind fresh avvadaniki ready undandi ☕",
+  "చాయ్ లిజే లో వెయిట్ అంటే టైమ్ వేస్ట్ కాదు… అనుభవం 😎",
+  "Milkshake blend avutundi… full chill vibe kosam 🥤😋",
+  "ఆర్డర్ రెడీ అయాక… మళ్ళీ ఇంకొటి ఆర్డర్ చేస్తారు అని ఫీలింగ్ 😏",
+  "Pizza oven lo dance chestundi… konchem wait 🍕🔥",
+  "స్నాక్స్ క్రిస్పీ గా రావాలంటే కొంచెం పేషెన్స్ 😄",
+  "Snacks crispy ga ravali ante konchem patience 😄",
+  "కిచెన్ లో మేజిక్ జరుగుతుంది… కొంచెం పేషెన్స్ ప్లీజ్ 😄",
+  "Mee kosam fresh ga prepare chestunnam… enjoy cheyyandi ☕",
+  "మీకోసం ఫ్రెష్ గా తయారు చేస్తున్నాం… ఎంజాయ్ చేయండి ☕",
+  "Chai Lije lo wait ante time waste kaadu… experience 😎",
+  "మిల్క్‌షేక్ బ్లెండ్ అవుతుంది… ఫుల్ చిల్ వైబ్ కోసం 🥤😋",
+  "Order ready ayyaka… malli inkoti order chestaru ani feeling 😏",
+  "పిజ్జా ఓవెన్ లో డాన్స్ చేస్తుంది… కొంచెం వెయిట్ 🍕🔥",
+];
+let quoteIndex = 0;
+const isTeluguScript = (str) => /[\u0C00-\u0C7F]/.test(str);
+
+function applyQuoteFont(el, text) {
+  el.classList.remove('font-en', 'font-te');
+  el.classList.add(isTeluguScript(text) ? 'font-te' : 'font-en');
+}
+
+function rotateQuote() {
+  const el = document.getElementById('heroQuote');
+  el.classList.add('fade');
+  setTimeout(() => {
+    quoteIndex = (quoteIndex + 1) % CHAI_QUOTES.length;
+    el.textContent = CHAI_QUOTES[quoteIndex];
+    applyQuoteFont(el, CHAI_QUOTES[quoteIndex]);
+    el.classList.remove('fade');
+  }, 500);
+}
+const _firstQuote = CHAI_QUOTES[0];
+document.getElementById('heroQuote').textContent = _firstQuote;
+applyQuoteFont(document.getElementById('heroQuote'), _firstQuote);
+setInterval(rotateQuote, 4000);
+
+// ══════════════════════════════════════
+//  HERO 3D TRANSFORMATION SEQUENCES
+// ══════════════════════════════════════
+const TRANSFORM_SEQS = [
+  { before:'😴', drink:'☕', after:'😌' },
+  { before:'😵‍💫', drink:'☕', after:'😎' },
+  { before:'🥱', drink:'☕', after:'⚡' },
+  { before:'😤', drink:'☕', after:'😇' },
+  { before:'🔥', drink:'🥤', after:'🧊😋' },
+  { before:'😓', drink:'🥤', after:'😍' },
+  { before:'🤤', drink:'🍕', after:'😋' },
+  { before:'😐', drink:'🍟', after:'😄' },
+  { before:'📉', drink:'☕', after:'📈' },
+  { before:'🧠💥', drink:'☕', after:'🧘‍♂️' },
+];
+
+let seqIndex = 0;
+
+function flipCard(el, newText, delay) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      el.classList.add('flip-out');
+      setTimeout(() => {
+        el.textContent = newText;
+        el.classList.remove('flip-out');
+        el.classList.add('flip-in');
+        // sparkle on drink card
+        if (el.id === 'tDrink') spawnSparkles(el);
+        setTimeout(() => { el.classList.remove('flip-in'); resolve(); }, 400);
+      }, 340);
+    }, delay);
+  });
+}
+
+function spawnSparkles(el) {
+  const sparks = ['✨','⭐','💫','🌟','✦'];
+  const positions = [
+    { x:'-28px', y:'-22px' }, { x:'28px', y:'-22px' },
+    { x:'-32px', y:'10px'  }, { x:'32px', y:'10px'  },
+    { x:'0px',   y:'-36px' },
+  ];
+  positions.forEach((pos, i) => {
+    const s = document.createElement('span');
+    s.className = 't-sparkle';
+    s.textContent = sparks[i % sparks.length];
+    s.style.setProperty('--sx', pos.x);
+    s.style.setProperty('--sy', pos.y);
+    s.style.left = '50%'; s.style.top = '50%';
+    s.style.marginLeft = '-8px'; s.style.marginTop = '-8px';
+    s.style.animationDelay = (i * 60) + 'ms';
+    el.appendChild(s);
+    setTimeout(() => s.remove(), 800);
+  });
+}
+
+async function runNextSequence() {
+  seqIndex = (seqIndex + 1) % TRANSFORM_SEQS.length;
+  const seq = TRANSFORM_SEQS[seqIndex];
+  const bEl = document.getElementById('tBefore');
+  const dEl = document.getElementById('tDrink');
+  const aEl = document.getElementById('tAfter');
+  // stagger the flips: before → drink → after
+  await flipCard(bEl, seq.before, 0);
+  await flipCard(dEl, seq.drink,  200);
+  await flipCard(aEl, seq.after,  400);
+}
+
+// Init first sequence
+(function() {
+  const s = TRANSFORM_SEQS[0];
+  document.getElementById('tBefore').textContent = s.before;
+  document.getElementById('tDrink').textContent  = s.drink;
+  document.getElementById('tAfter').textContent  = s.after;
+})();
+
+setInterval(runNextSequence, 4500);
+
+
+// ══════════════════════════════════════
+(function() {
+  const cards = document.querySelectorAll('.why-love-card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+
+// ══════════════════════════════════════
+//  RENDER MENU
+// ══════════════════════════════════════
+function renderMenu() {
+  const nav = document.getElementById('catNav');
+  const section = document.getElementById('menuSection');
+  nav.innerHTML = '';
+  section.innerHTML = '';
+
+  MENU.forEach(cat => {
+    // Nav pill
+    const pill = document.createElement('button');
+    pill.className = 'cat-pill';
+    pill.textContent = cat.emoji + ' ' + cat.name;
+    pill.onclick = () => {
+      document.getElementById('cat-' + cat.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    nav.appendChild(pill);
+
+    // Category block
+    const block = document.createElement('div');
+    block.className = 'category-block';
+    block.id = 'cat-' + cat.id;
+
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.innerHTML = `<span class="cat-header-emoji">${cat.emoji}</span><span class="cat-header-name">${cat.name}</span>`;
+    block.appendChild(header);
+
+    const itemsDiv = document.createElement('div');
+    itemsDiv.className = 'cat-items';
+
+    cat.items.forEach(item => {
+      itemsDiv.appendChild(buildItemRow(item));
+    });
+
+    block.appendChild(itemsDiv);
+    section.appendChild(block);
+  });
+}
+
+function buildItemRow(item) {
+  const avail = isAvailable(item.id);
+  const qty = cart[item.id] || 0;
+
+  const row = document.createElement('div');
+  row.className = 'menu-item' + (!avail ? ' unavailable' : '');
+  row.id = 'row-' + item.id;
+
+  const badge = item.badge ? `<span class="extra-tag">${item.badge}</span>` : '';
+
+  row.innerHTML = `
+    <div class="item-info">
+      <span class="item-name">${item.name}${badge}<span class="oos-label">Out of Stock</span></span>
+      <span class="item-price">₹${item.price}</span>
+    </div>
+    <div class="qty-controls">
+      <button class="qty-btn minus-btn" onclick="changeQty('${item.id}',-1)" ${!avail || qty===0?'disabled':''}>−</button>
+      <span class="qty-num" id="qty-${item.id}">${qty}</span>
+      <button class="qty-btn add-btn" onclick="changeQty('${item.id}',1)" ${!avail?'disabled':''}>+</button>
+    </div>
+  `;
+  return row;
+}
+
+function refreshItemRow(itemId) {
+  const row = document.getElementById('row-' + itemId);
+  if (!row) return;
+  const item = getItem(itemId);
+  if (!item) return;
+  const avail = isAvailable(itemId);
+  const qty = cart[itemId] || 0;
+  row.className = 'menu-item' + (!avail ? ' unavailable' : '');
+  row.querySelector('.qty-num').textContent = qty;
+  const minus = row.querySelector('.minus-btn');
+  const plus = row.querySelector('.add-btn');
+  minus.disabled = !avail || qty === 0;
+  plus.disabled = !avail;
+}
+
+// ══════════════════════════════════════
+//  CART LOGIC
+// ══════════════════════════════════════
+function changeQty(id, delta) {
+  const item = getItem(id);
+  if (!item || !isAvailable(id)) return;
+  cart[id] = Math.max(0, (cart[id] || 0) + delta);
+  if (cart[id] === 0) delete cart[id];
+  refreshItemRow(id);
+  updateCartUI();
+  if (delta > 0) showToast('Added: ' + item.name);
+}
+
+function getCartTotal() {
+  let total = 0;
+  for (const [id, qty] of Object.entries(cart)) {
+    const item = getItem(id);
+    if (item) total += item.price * qty;
+  }
+  return total;
+}
+
+function getCartCount() {
+  return Object.values(cart).reduce((a, b) => a + b, 0);
+}
+
+function updateCartUI() {
+  const count = getCartCount();
+  const total = getCartTotal();
+  const fab = document.getElementById('cartFab');
+  const badge = document.getElementById('cartBadge');
+  const fabTotal = document.getElementById('cartFabTotal');
+  badge.textContent = count;
+  fabTotal.textContent = '₹' + total;
+  if (count > 0) fab.classList.remove('hidden');
+  else fab.classList.add('hidden');
+
+  // Update drawer if open
+  renderCartDrawer();
+}
+
+function renderCartDrawer() {
+  const list = document.getElementById('cartItemsList');
+  const totalAmt = document.getElementById('cartTotalAmt');
+  list.innerHTML = '';
+  const entries = Object.entries(cart).filter(([,q]) => q > 0);
+  if (entries.length === 0) {
+    list.innerHTML = '<div style="padding:24px;text-align:center;color:#aaa;font-weight:700">No items yet</div>';
+  } else {
+    entries.forEach(([id, qty]) => {
+      const item = getItem(id);
+      if (!item) return;
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+      row.innerHTML = `
+        <span class="cart-row-name">${item.name}</span>
+        <div class="qty-controls" style="transform:scale(0.88);transform-origin:right">
+          <button class="qty-btn minus-btn" onclick="changeQty('${id}',-1)">−</button>
+          <span class="qty-num">${qty}</span>
+          <button class="qty-btn add-btn" onclick="changeQty('${id}',1)">+</button>
+        </div>
+        <span class="cart-row-price">₹${item.price * qty}</span>
+      `;
+      list.appendChild(row);
+    });
+  }
+  totalAmt.textContent = '₹' + getCartTotal();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  renderCartDrawer();
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+}
+
+// ══════════════════════════════════════
+//  PLACE ORDER
+// ══════════════════════════════════════
+function placeOrder() {
+  if (getCartCount() === 0) { showToast('Your cart is empty!'); return; }
+
+  const orderId = generateOrderId();
+  const total = getCartTotal();
+  const itemsList = Object.entries(cart).map(([id, qty]) => {
+    const item = getItem(id);
+    return item ? `${item.name} x${qty}` : '';
+  }).filter(Boolean);
+
+  const order = {
+    id: orderId,
+    items: Object.entries(cart).map(([id, qty]) => ({ id, qty, name: getItem(id)?.name, price: getItem(id)?.price })),
+    total,
+    status: 'new',
+    time: new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' }),
+    date: new Date().toLocaleDateString('en-IN'),
+    ts: Date.now(),
+  };
+
+  orders.unshift(order);
+  saveOrders();
+  fbPushOrder(order); // ← also write to Firebase for cross-device sync
+
+  // Track order for customer-side notifications
+  myOrderIds.push(orderId);
+  localStorage.setItem('cl_my_orders', JSON.stringify(myOrderIds));
+
+  // WA message to ADMIN
+  const waMsg = `🍵 *New Order - ${orderId}*\n\nItems:\n${itemsList.map(i => '• '+i).join('\n')}\n\n💰 Total: ₹${total}\n\n⏱ Estimated: 10–15 mins`;
+  const waUrl = `https://wa.me/919030982929?text=${encodeURIComponent(waMsg)}`;
+
+  // Show confirm screen
+  document.getElementById('confirmOrderId').textContent = orderId;
+  document.getElementById('customerPhone').value = '';
+  const confirmList = document.getElementById('confirmItemsList');
+  confirmList.innerHTML = itemsList.map(i => {
+    const parts = i.split(' x');
+    const item = Object.entries(cart).find(([id]) => getItem(id)?.name === parts[0]);
+    const price = item ? getItem(item[0])?.price * item[1] : 0;
+    return `<div class="confirm-item-row"><span>${i}</span><span>₹${price}</span></div>`;
+  }).join('');
+
+  document.getElementById('waBtn').onclick = () => {
+    const phoneInput = document.getElementById('customerPhone');
+    const phone = phoneInput.value.trim().replace(/\D/g,'');
+    if (phone.length !== 10) {
+      phoneInput.style.outline = '2.5px solid #e53e3e';
+      phoneInput.closest('.phone-input-row').style.borderColor = '#e53e3e';
+      phoneInput.focus();
+      showToast('📱 Please enter your WhatsApp number first');
+      setTimeout(() => {
+        phoneInput.style.outline = '';
+        phoneInput.closest('.phone-input-row').style.borderColor = '';
+      }, 2000);
+      return;
+    }
+    order.phone = '91' + phone;
+    fbPatchOrder(order.id, { phone: '91' + phone });
+    const lo = orders.find(x => x.id === order.id);
+    if (lo) lo.phone = '91' + phone;
+    saveOrders();
+    window.open(waUrl, '_blank');
+  };
+  document.getElementById('confirmScreen').classList.add('open');
+
+  // Clear cart
+  cart = {};
+  renderMenu();
+  updateCartUI();
+  closeCart();
+
+  // Notify admin if logged in
+  if (adminLoggedIn) {
+    triggerAdminNotif(orderId);
+    renderAdminContent();
+  }
+}
+
+function closeConfirm() {
+  document.getElementById('confirmScreen').classList.remove('open');
+}
+
+function setShopStatus(type, enabled) {
+  if (type === 'closed') {
+    if (enabled) {
+      // Show date picker before committing
+      const today = new Date();
+      const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+      document.getElementById('closedDateInput').value = tomorrow.toISOString().split('T')[0];
+      document.getElementById('closedDateInput').min = today.toISOString().split('T')[0];
+      document.getElementById('closedPickerOverlay').classList.add('open');
+      // Revert toggle visually until confirmed
+      document.getElementById('closedToggle').checked = false;
+      return;
+    } else {
+      shopStatus = shopStatus === 'closed' ? 'open' : shopStatus;
+      localStorage.removeItem('cl_reopen_date');
+      fbSetStatusMeta({ reopenDate: null });
+    }
+  } else if (type === 'break') {
+    if (enabled) {
+      // Default time = now + 30 min
+      const now = new Date(Date.now() + 30 * 60000);
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      document.getElementById('breakTimeInput').value = `${hh}:${mm}`;
+      document.getElementById('breakPickerOverlay').classList.add('open');
+      document.getElementById('breakToggle').checked = false;
+      return;
+    } else {
+      shopStatus = shopStatus === 'break' ? 'open' : shopStatus;
+      localStorage.removeItem('cl_back_time');
+      fbSetStatusMeta({ backTime: null });
+    }
+  }
+  applyShopStatus();
+}
+
+function confirmBreakPicker() {
+  const t = document.getElementById('breakTimeInput').value;
+  if (!t) { showToast('Please pick a time'); return; }
+  document.getElementById('breakPickerOverlay').classList.remove('open');
+  document.getElementById('breakToggle').checked = true;
+  document.getElementById('closedToggle').checked = false;
+  shopStatus = 'break';
+  localStorage.setItem('cl_back_time', t);
+  localStorage.removeItem('cl_reopen_date');
+  fbSetStatusMeta({ backTime: t, reopenDate: null });
+  applyShopStatus();
+}
+
+function cancelBreakPicker() {
+  document.getElementById('breakPickerOverlay').classList.remove('open');
+  document.getElementById('breakToggle').checked = false;
+}
+
+function confirmClosedPicker() {
+  const d = document.getElementById('closedDateInput').value;
+  if (!d) { showToast('Please pick a date'); return; }
+  document.getElementById('closedPickerOverlay').classList.remove('open');
+  document.getElementById('closedToggle').checked = true;
+  document.getElementById('breakToggle').checked = false;
+  shopStatus = 'closed';
+  localStorage.setItem('cl_reopen_date', d);
+  localStorage.removeItem('cl_back_time');
+  fbSetStatusMeta({ reopenDate: d, backTime: null });
+  applyShopStatus();
+}
+
+function cancelClosedPicker() {
+  document.getElementById('closedPickerOverlay').classList.remove('open');
+  document.getElementById('closedToggle').checked = false;
+}
+
+function applyShopStatus() {
+  localStorage.setItem('cl_shop_status', shopStatus);
+  fbSetShopStatus(shopStatus);
+  updateShopStatusOverlay();
+  const label = shopStatus === 'open' ? '✅ Shop is now OPEN' : shopStatus === 'break' ? '☕ Short Break set' : '🔒 Shop marked Closed';
+  showToast(label);
+}
+
+async function fbSetStatusMeta(meta) {
+  if (!FB_READY) return;
+  try {
+    await fetch(`${FIREBASE_DB}/shopMeta.json`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(meta),
+    });
+  } catch(e) {}
+}
+
+async function fbGetStatusMeta() {
+  if (!FB_READY) return null;
+  try {
+    const res = await fetch(`${FIREBASE_DB}/shopMeta.json`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch(e) { return null; }
+}
+
+function updateShopStatusOverlay() {
+  const closedEl = document.getElementById('shopClosedOverlay');
+  const breakEl = document.getElementById('shopBreakOverlay');
+  const menuSection = document.getElementById('menuSection');
+  const catNav = document.getElementById('catNav');
+  const whyLove = document.querySelector('.why-love-section');
+  const hero = document.querySelector('.hero');
+  const floatDot = document.getElementById('adminFloatDot');
+
+  if (shopStatus === 'closed') {
+    closedEl.classList.add('show');
+    breakEl.classList.remove('show');
+    if (menuSection) menuSection.style.display = 'none';
+    if (catNav) catNav.style.display = 'none';
+    if (whyLove) whyLove.style.display = 'none';
+    if (hero) hero.style.display = 'none';
+    floatDot.className = 'admin-float-dot visible status-closed';
+    // Show reopen date
+    const reopenDate = localStorage.getItem('cl_reopen_date');
+    let reopenInfo = document.getElementById('closedReopenInfo');
+    if (!reopenInfo) {
+      reopenInfo = document.createElement('div');
+      reopenInfo.id = 'closedReopenInfo';
+      reopenInfo.style.cssText = 'margin-top:18px;font-size:15px;font-weight:800;color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.1);border-radius:12px;padding:10px 20px;text-align:center;';
+      closedEl.appendChild(reopenInfo);
+    }
+    if (reopenDate) {
+      const d = new Date(reopenDate + 'T00:00:00');
+      const formatted = d.toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long' });
+      reopenInfo.textContent = `📅 Back on ${formatted}`;
+      reopenInfo.style.display = 'block';
+    } else {
+      reopenInfo.style.display = 'none';
+    }
+  } else if (shopStatus === 'break') {
+    breakEl.classList.add('show');
+    closedEl.classList.remove('show');
+    if (menuSection) menuSection.style.display = 'none';
+    if (catNav) catNav.style.display = 'none';
+    if (whyLove) whyLove.style.display = 'none';
+    floatDot.className = 'admin-float-dot visible status-break';
+    // Show back time
+    const backTime = localStorage.getItem('cl_back_time');
+    let backInfo = document.getElementById('breakBackInfo');
+    if (!backInfo) {
+      backInfo = document.createElement('div');
+      backInfo.id = 'breakBackInfo';
+      backInfo.style.cssText = 'margin-top:18px;font-size:16px;font-weight:800;color:var(--gold-light);background:rgba(255,255,255,0.1);border-radius:12px;padding:10px 20px;text-align:center;';
+      breakEl.appendChild(backInfo);
+    }
+    if (backTime) {
+      // Format to 12-hour
+      const [hh, mm] = backTime.split(':');
+      const d = new Date(); d.setHours(+hh, +mm);
+      const formatted = d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', hour12: true });
+      backInfo.textContent = `⏰ Back by ${formatted}`;
+      backInfo.style.display = 'block';
+    } else {
+      backInfo.style.display = 'none';
+    }
+  } else {
+    closedEl.classList.remove('show');
+    breakEl.classList.remove('show');
+    if (menuSection) menuSection.style.display = '';
+    if (catNav) catNav.style.display = '';
+    if (whyLove) whyLove.style.display = '';
+    if (hero) hero.style.display = '';
+    floatDot.className = 'admin-float-dot';
+  }
+}
+
+function syncStatusToggleUI() {
+  const breakToggle = document.getElementById('breakToggle');
+  const closedToggle = document.getElementById('closedToggle');
+  if (breakToggle) breakToggle.checked = shopStatus === 'break';
+  if (closedToggle) closedToggle.checked = shopStatus === 'closed';
+}
+
+// ══════════════════════════════════════
+//  ADMIN
+// ══════════════════════════════════════
+document.getElementById('adminDot').addEventListener('click', () => {
+  document.getElementById('adminLoginOverlay').classList.add('open');
+});
+
+document.getElementById('adminFloatDot').addEventListener('click', () => {
+  document.getElementById('adminLoginOverlay').classList.add('open');
+});
+
+// Triple-click on logo too
+let logoClicks = 0;
+document.querySelector('.logo-name').addEventListener('click', () => {
+  logoClicks++;
+  if (logoClicks >= 3) { logoClicks = 0; document.getElementById('adminLoginOverlay').classList.add('open'); }
+  setTimeout(() => { logoClicks = 0; }, 1200);
+});
+
+function closeAdminLogin() {
+  document.getElementById('adminLoginOverlay').classList.remove('open');
+  document.getElementById('loginErr').style.display = 'none';
+}
+
+function doLogin() {
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value;
+  if (u === 'admin' && p === 'chai@1234') {
+    adminLoggedIn = true;
+    closeAdminLogin();
+    openAdminPanel();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+
+document.getElementById('adminPass').addEventListener('keypress', e => { if (e.key==='Enter') doLogin(); });
+
+function openAdminPanel() {
+  document.getElementById('adminPanel').classList.add('open');
+  syncStatusToggleUI();
+  fbSetMenuAvail(menuAvail); // seed Firebase with current local state
+  startAdminSync(); // fetches from Firebase, polls every 5s
+}
+
+function logout() {
+  adminLoggedIn = false;
+  document.getElementById('adminPanel').classList.remove('open');
+  stopNotif();
+  if (adminSyncInterval) { clearInterval(adminSyncInterval); adminSyncInterval = null; }
+}
+
+function switchTab(tab, btn) {
+  currentAdminTab = tab;
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderAdminContent();
+}
+
+function renderAdminContent() {
+  const content = document.getElementById('adminContent');
+  if (currentAdminTab === 'orders') renderOrdersTab(content);
+  else if (currentAdminTab === 'menu') renderMenuTab(content);
+  else if (currentAdminTab === 'completed') renderCompletedTab(content);
+}
+
+function renderOrdersTab(el) {
+  const active = orders.filter(o => o.status !== 'completed' && o.status !== 'ready');
+  // Also show recently completed (last 10 mins) so admin can still notify
+  const recentDone = orders.filter(o => (o.status === 'completed' || o.status === 'ready') && (Date.now() - (o.ts||0)) < 600000);
+  const syncBanner = FB_READY
+    ? `<div style="background:#e8f8ee;border-radius:10px;padding:8px 14px;margin-bottom:10px;font-size:12px;font-weight:700;color:var(--green-mid);display:flex;align-items:center;gap:6px">🔴 Live · Syncing all devices every 5s</div>`
+    : `<div style="background:#fff8e0;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;font-weight:700;color:#b8860b">
+        ⚠️ Local mode — orders only from this device.<br>
+        <span style="font-weight:600">To see all devices: set FIREBASE_DB in the script.</span>
+       </div>`;
+  if (active.length === 0 && recentDone.length === 0) {
+    el.innerHTML = syncBanner + `<div class="empty-state"><span class="empty-state-emoji">🧾</span><div class="empty-state-text">No active orders</div><div class="empty-state-sub">Orders will appear here</div></div>`;
+    return;
+  }
+  const recentDoneHTML = recentDone.length > 0
+    ? `<div style="font-size:11px;font-weight:800;color:var(--green-mid);text-transform:uppercase;letter-spacing:1px;margin:10px 2px 6px">✅ Just Completed — Notify Customer</div>` + recentDone.map(o => orderCardHTML(o)).join('')
+    : '';
+  el.innerHTML = syncBanner + active.map(o => orderCardHTML(o)).join('') + recentDoneHTML;
+}
+
+function orderCardHTML(o) {
+  const itemsText = o.items.map(i => `${i.name} ×${i.qty}`).join(', ');
+  const isNew = o.status === 'new';
+  const isWorking = o.status === 'working';
+  const isDone = o.status === 'completed' || o.status === 'ready';
+  const statusClass = isNew ? 'new' : isWorking ? 'working' : isDone ? 'ready' : '';
+  const statusLabel = isNew ? 'New' : isWorking ? 'Working...' : isDone ? 'Done' : o.status;
+  const statusBadgeClass = isNew ? 'status-new' : isWorking ? 'status-working' : isDone ? 'status-ready' : 'status-new';
+  const hasPhone = !!o.phone;
+  return `
+    <div class="order-card ${statusClass}" id="ocard-${o.id}">
+      <div class="order-card-top">
+        <div>
+          <div class="order-id">${o.id}</div>
+          <div class="order-time">${o.date} · ${o.time}</div>
+        </div>
+        <span class="order-status ${statusBadgeClass}">${statusLabel}</span>
+      </div>
+      <div class="order-items-text">${itemsText}</div>
+      <div class="order-total-row">
+        <span class="order-total-label">Total</span>
+        <span class="order-total-val">₹${o.total}</span>
+      </div>
+      ${!isDone ? `
+      <div class="order-actions">
+        <button class="action-btn btn-ready ${isWorking?'active':''}" onclick="markWorking('${o.id}')" ${isWorking?'disabled':''}>
+          ${isWorking ? '🔵 Working on it' : '👨‍🍳 Working on it'}
+        </button>
+        <button class="action-btn btn-complete" onclick="completeOrder('${o.id}')">
+          ✅ Completed
+        </button>
+      </div>` : ''}
+      ${isDone ? `
+      <div style="margin-top:6px">
+        <button class="action-btn" style="width:100%;background:#25D366;color:white;border-radius:10px;padding:11px;font-size:13px;font-weight:800;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" onclick="notifyCustomer('${o.id}')">
+          <span style="font-size:16px">💬</span> Notify Customer via WhatsApp
+        </button>
+        ${!hasPhone ? '<div style="font-size:11px;color:#e67e22;font-weight:700;margin-top:5px;text-align:center">📱 Tap to enter customer number</div>' : `<div style="font-size:11px;color:var(--green-mid);font-weight:700;margin-top:5px;text-align:center">📱 Sending to: +${o.phone}</div>`}
+      </div>` : ''}
+    </div>
+  `;
+}
+
+function markWorking(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  o.status = 'working';
+  saveOrders();
+  fbPatchOrder(id, { status: 'working' });
+  renderAdminContent();
+  stopNotif();
+  showToast('👨‍🍳 Working on order ' + id);
+}
+
+function completeOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  o.status = 'completed';
+  saveOrders();
+  fbPatchOrder(id, { status: 'completed' });
+  renderAdminContent();
+  playReadyChime();
+  showToast('🎉 Order ' + id + ' completed!');
+}
+
+let pendingNotifyId = null;
+
+function notifyCustomer(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  if (o.phone) {
+    sendReadyWhatsApp(o.phone, id);
+  } else {
+    // No phone saved — prompt admin to enter it
+    pendingNotifyId = id;
+    document.getElementById('adminPhoneEntry').value = '';
+    document.getElementById('phonePromptOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('adminPhoneEntry').focus(), 300);
+  }
+}
+
+function confirmPhonePrompt() {
+  const raw = document.getElementById('adminPhoneEntry').value.trim().replace(/\D/g,'');
+  if (raw.length !== 10) { showToast('Please enter a valid 10-digit number'); return; }
+  const phone = '91' + raw;
+  document.getElementById('phonePromptOverlay').classList.remove('open');
+  // Save the number to the order for future use
+  if (pendingNotifyId) {
+    const o = orders.find(x => x.id === pendingNotifyId);
+    if (o) { o.phone = phone; saveOrders(); fbPatchOrder(pendingNotifyId, { phone }); }
+    sendReadyWhatsApp(phone, pendingNotifyId);
+    pendingNotifyId = null;
+    renderAdminContent();
+  }
+}
+
+function cancelPhonePrompt() {
+  document.getElementById('phonePromptOverlay').classList.remove('open');
+  pendingNotifyId = null;
+}
+
+function sendReadyWhatsApp(phone, orderId) {
+  const msg = `✅ Your order *${orderId}* is ready! 🍵\nPlease come, collect & pay.\nThank you for choosing Chai Lije! ☕\n– Chai Lije, Pragathi Nagar`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function renderMenuTab(el) {
+  el.innerHTML = MENU.map(cat => `
+    <div class="menu-toggle-card">
+      <div class="menu-toggle-cat">${cat.emoji} ${cat.name}</div>
+      ${cat.items.map(item => `
+        <div class="menu-toggle-item">
+          <div>
+            <div class="toggle-name">${item.name}</div>
+            <div class="toggle-price">₹${item.price}</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" ${isAvailable(item.id)?'checked':''} onchange="toggleItem('${item.id}', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function toggleItem(id, available) {
+  menuAvail[id] = available;
+  saveAvail();
+  fbSetMenuAvail(menuAvail);
+  refreshItemRow(id);
+  showToast(available ? 'Item enabled' : 'Marked out of stock');
+}
+
+function renderCompletedTab(el) {
+  const done = orders.filter(o => o.status === 'completed');
+  if (done.length === 0) {
+    el.innerHTML = `<div class="empty-state"><span class="empty-state-emoji">✅</span><div class="empty-state-text">No completed orders</div><div class="empty-state-sub">Completed orders appear here</div></div>`;
+    return;
+  }
+  const todayOrders = done.filter(o => o.date === new Date().toLocaleDateString('en-IN'));
+  const revenue = todayOrders.reduce((a, o) => a + o.total, 0);
+  el.innerHTML = `
+    <div style="background:var(--green-dark);border-radius:14px;padding:16px 20px;margin-bottom:14px;color:white;text-align:center">
+      <div style="font-size:11px;color:var(--green-pale);font-weight:700;text-transform:uppercase;letter-spacing:1px">Today's Revenue</div>
+      <div style="font-size:28px;font-weight:900;color:var(--gold-light);margin-top:4px">₹${revenue}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px">${todayOrders.length} orders</div>
+    </div>
+    ${done.map(o => `
+      <div class="order-card ready" style="opacity:0.75">
+        <div class="order-card-top">
+          <div>
+            <div class="order-id">${o.id}</div>
+            <div class="order-time">${o.date} · ${o.time}</div>
+          </div>
+          <span class="order-status status-ready">Done</span>
+        </div>
+        <div class="order-items-text">${o.items.map(i=>`${i.name} ×${i.qty}`).join(', ')}</div>
+        <div class="order-total-row">
+          <span class="order-total-label">Total</span>
+          <span class="order-total-val">₹${o.total}</span>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function triggerAdminNotif(orderId) {
+  const banner = document.getElementById('notifBanner');
+  banner.textContent = `🔔 New Order: ${orderId} — Tap to view`;
+  banner.classList.add('show');
+  stopNotif();
+  notifInterval = setInterval(() => playBeep(), 1500);
+  playBeep();
+  banner.onclick = () => { banner.classList.remove('show'); stopNotif(); };
+  setTimeout(() => banner.classList.remove('show'), 15000);
+}
+
+function stopNotif() {
+  clearInterval(notifInterval);
+  notifInterval = null;
+}
+
+// Same-browser tab sync (still useful as fallback)
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cl_orders' && adminLoggedIn && !FB_READY) {
+    const newOrders = JSON.parse(e.newValue || '[]');
+    const oldIds = new Set(orders.map(o => o.id));
+    const newOnes = newOrders.filter(o => !oldIds.has(o.id));
+    orders = newOrders;
+    if (newOnes.length > 0) triggerAdminNotif(newOnes[0].id);
+    renderAdminContent();
+  }
+  // Sync menu availability across tabs
+  if (e.key === 'cl_avail') {
+    menuAvail = JSON.parse(e.newValue || '{}');
+    MENU.forEach(cat => cat.items.forEach(item => refreshItemRow(item.id)));
+  }
+});
+
+// ══════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════
+renderMenu();
+updateCartUI();
+updateShopStatusOverlay();
+startCustomerPoll();
+</script>
+<!-- ── TAKEOFF STUDIO CREDIT FOOTER ── -->
+<div class="tts-footer">
+  <span class="tts-label">Designed &amp; Built by</span>
+  <a href="https://thetakeoffstudio.co.in/" target="_blank" rel="noopener" class="tts-brand">
+    <div class="tts-logo-icon">
+      <!-- Double chevron up — matches The Takeoff Studio logo exactly -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="5,13 12,6 19,13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="5,19 12,12 19,19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="tts-brand-name">The Takeoff <span>Studio</span></span>
+  </a>
+</div>
+
+</body>
+</html>
